@@ -1,34 +1,32 @@
 import sys
 import pygame
 from maze import Maze
+import game_functions as gf
+from pm import PM
 
 
 def run_game():
     # Initialize pygame, settings, and screen object.
     pygame.init()
-    screen = pygame.display.set_mode((800, 800))
+    screen = pygame.display.set_mode((630, 800))
     pygame.display.set_caption("PACMAN")
 
     # Draw maze
     mazefile = 'maze.txt'
-    brickfile = 'images/square.png'
-    ballfile = 'images/ball.png'
-    maze = Maze(screen, mazefile, brickfile, ballfile)
+
+    maze = Maze(screen, mazefile)
+
+    # Pacman
+    pm = PM(screen, maze)
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+        gf.check_events(screen, pm, maze)
 
-        # Screen color
-        bg_color = (0, 0, 0)
-        screen.fill(bg_color)
-
-        # Blit the maze
-        maze.blitme()
+        gf.update_screen(screen, pm, maze)
 
         # Display
         pygame.display.flip()
+
 run_game()
 
 
