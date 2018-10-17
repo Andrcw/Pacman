@@ -1,6 +1,7 @@
 import pygame
 from imagerect import ImageRect
 
+
 class Maze:
     RED = (255, 0, 0)
     BRICK_SIZE = 10
@@ -31,7 +32,11 @@ class Maze:
 
         # for the line (gate)
         self.lines = []
-        self.line = ImageRect(screen, "line", 11, 10)
+        self.line = ImageRect(screen, "line", 10, 10)
+
+        # for power pill
+        self.pills = []
+        self.pill = ImageRect(screen, "pill", 10, 10)
 
         self.build()
 
@@ -53,6 +58,8 @@ class Maze:
                     self.balls.append(pygame.Rect(ncol * Maze.BRICK_SIZE, nrow * Maze.BRICK_SIZE, w, h))
                 if col == '-':
                     self.lines.append(pygame.Rect(ncol * Maze.BRICK_SIZE, nrow * Maze.BRICK_SIZE, w, h))
+                if col == '8':
+                    self.pills.append(pygame.Rect(ncol * Maze.BRICK_SIZE, nrow * Maze.BRICK_SIZE, w, h))
 
     def blitme(self):
         for rect in self.bricks:
@@ -61,3 +68,5 @@ class Maze:
             self.screen.blit(self.ball.image, rect)
         for rect in self.lines:
             self.screen.blit(self.line.image, rect)
+        for rect in self.pills:
+            self.screen.blit(self.pill.image, rect)

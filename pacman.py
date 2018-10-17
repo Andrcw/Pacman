@@ -3,6 +3,8 @@ import pygame
 from maze import Maze
 import game_functions as gf
 from pm import PM
+from ghosts import Red
+from stats import Stats
 
 
 def run_game():
@@ -10,6 +12,8 @@ def run_game():
     pygame.init()
     screen = pygame.display.set_mode((630, 800))
     pygame.display.set_caption("PACMAN")
+
+    stats = Stats()
 
     # Draw maze
     mazefile = 'maze.txt'
@@ -19,13 +23,17 @@ def run_game():
     # Pacman
     pm = PM(screen, maze)
 
+    # Ghosts
+    red = Red(screen, maze)
+
     while True:
-        gf.check_events(screen, pm, maze)
 
-        gf.update_screen(screen, pm, maze)
+        if stats.game_active:
+            gf.check_events(screen, pm, maze, red, stats)
 
-        # Display
-        pygame.display.flip()
+            gf.update_screen(screen, pm, maze, red, stats)
+
+            pygame.display.flip()
 
 run_game()
 
