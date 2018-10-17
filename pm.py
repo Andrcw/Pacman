@@ -27,6 +27,8 @@ class PM(Sprite):
 
         # Speed
         self.speed = 5
+        self.tick_speed = 10
+        self.timer = pygame.time.get_ticks()
 
         # Index for images
         self.index = 1
@@ -38,9 +40,14 @@ class PM(Sprite):
         self.direction_u = False
         self.direction_d = False
 
+        # For the scores
+        self.lives = 3
+        self.score = 0
+
     def update(self, maze, screen):
         """Update position based on movement flags"""
-        if gf.stop_ball(self, maze) is False:
+        if gf.stop_ball(self, maze) is False and pygame.time.get_ticks() - self.timer >= self.tick_speed:
+            self.timer = pygame.time.get_ticks()
             if self.move == "l":
                 self.image.rect.x -= self.speed
                 file = "p_left_" + str(math.floor(self.index))
@@ -62,10 +69,10 @@ class PM(Sprite):
 
     def ghost_collision(self, red, stats, screen):
         """Check if pacman collides with ghost, loses a life"""
-        if pygame.sprite.collide_rect(self, red):
+        if pygame.sprite.collide_rect(self, red) and red.alive is True:
             stats.game_pause = True
 
-        if stats.game_pause:
+        if stats.game_pause and red.alive is True:
             file = "p_dead_" + str(math.floor(self.dead_index))
             self.image = ImageRect(screen, file, PM.PAC_SIZE, PM.PAC_SIZE)
             self.image.rect = self.rect
@@ -74,11 +81,16 @@ class PM(Sprite):
                 stats.game_pause = False
 
                 # Decrease amount of lives left
+                self.lives -= 1
 
                 # Start again
-                gf.reset_locations(self, red)
+                gf.reset_locations(self, red, stats)
+
             else:
                 self.dead_index += .3
+
+        if self.lives == 0:
+            stats.game_over = True
 
     def blitme(self):
         self.image.blitme()
