@@ -114,18 +114,61 @@ class Red(Sprite):
         """Make the ghost move by itself"""
         # Check while moving up
         # make sure if the ghost is at the center (start of the game) then it will move to the left
-        if gf.stop_ball(self, maze) is True:   # Make this false later for self.eat
+        if gf.stop_ball(self, maze) is True and self.eat is False:
             self.check_directions(maze)
 
             if self.move == "u" and self.rect == (300, 230, 30, 30):
                 self.move = "l"
 
-            elif len(self.avail) == 0:
-                self.move = "l"  # In case error, move left
+            elif len(self.avail) == 0: # In case error, try one of these moves
+                self.move = "l"
                 self.move = "r"
                 self.move = "u"
                 self.move = "d"
                 print("ERROR: NO MOVES AVAILABLE")
+
+            else:
+                rand = random.choice(self.avail)
+                self.move = rand
+
+        # if gf.stop_ball(self, maze) is True and self.eat is True:
+        if self.eat is True:
+            self.check_directions(maze)
+            # For TESTING
+            # print(self.move)
+            # print(self.avail)
+
+            if self.rect.x < 190 and self.rect.y is not 230:
+                if "r" in self.avail:
+                    self.move = "r"
+                elif gf.stop_ball(self, maze):
+                    rand = random.choice(self.avail)
+                    self.move = rand
+
+            elif self.rect.x > 410 and self.rect.y is not 230:
+                if "l" in self.avail:
+                    self.move = "l"
+                elif gf.stop_ball(self, maze):
+                    rand = random.choice(self.avail)
+                    self.move = rand
+
+            elif self.rect.y < 230 and self.rect.x is not 300:
+                if "d" in self.avail:
+                    self.move = "d"
+                elif gf.stop_ball(self, maze):
+                    rand = random.choice(self.avail)
+                    self.move = rand
+
+            elif self.rect.y > 230 and self.rect.x is not 300:
+                if "u" in self.avail:
+                    self.move = "u"
+                elif gf.stop_ball(self, maze):
+                    rand = random.choice(self.avail)
+                    self.move = rand
+
+            elif self.rect.y is 230 and 190 < self.rect.x < 410:
+                if 290 < self.rect.x < 310:
+                    self.move = "d"
 
             else:
                 rand = random.choice(self.avail)

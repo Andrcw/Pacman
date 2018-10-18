@@ -64,6 +64,9 @@ class PM(Sprite):
             else:
                 self.index += .3
 
+        """For testing"""
+        # print(self.rect.x)
+
     def ghost_collision(self, red, stats, screen):
         """Check if pacman collides with ghost, loses a life"""
         if pygame.sprite.collide_rect(self, red) and red.alive is True:
