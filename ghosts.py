@@ -41,26 +41,39 @@ class Red(Sprite):
 
         # Set state of pacman to start as alive
         self.alive = True
+        self.eat = False
 
         # Ticks
         self.timer = pygame.time.get_ticks()
 
-    def update(self, maze, screen):
+    def update(self, maze, screen, pm):
         """Update position based on movement flags"""
         if gf.stop_ball(self, maze) is False and pygame.time.get_ticks() - self.timer >= self.tick_speed:
             self.timer = pygame.time.get_ticks()
             if self.move == "l":
                 self.image.rect.x -= self.speed
-                file = "g_red_left_" + str(math.floor(self.index))
+                if self.eat is False:
+                    file = "g_red_left_" + str(math.floor(self.index))
+                else:
+                    file = "g_eyes_left"
             elif self.move == "r":
                 self.image.rect.x += self.speed
-                file = "g_red_right_" + str(math.floor(self.index))
+                if self.eat is False:
+                    file = "g_red_right_" + str(math.floor(self.index))
+                else:
+                    file = "g_eyes_right"
             elif self.move == "d":
                 self.image.rect.y += self.speed
-                file = "g_red_down_" + str(math.floor(self.index))
+                if self.eat is False:
+                    file = "g_red_down_" + str(math.floor(self.index))
+                else:
+                    file = "g_eyes_down"
             elif self.move == "u":
                 self.image.rect.y -= self.speed
-                file = "g_red_up_" + str(math.floor(self.index))
+                if self.eat is False:
+                    file = "g_red_up_" + str(math.floor(self.index))
+                else:
+                    file = "g_eyes_up"
             self.image = ImageRect(screen, file, Red.RED_SIZE, Red.RED_SIZE)
             self.image.rect = self.rect
             if self.index > 2.5:
@@ -69,11 +82,10 @@ class Red(Sprite):
                 self.index += .1
 
         """For the dead ghosts"""
-        if self.alive is False:
+        if self.alive is False and self.eat is False:
             file = "evil_" + str(math.floor(self.dead_index))
             self.image = ImageRect(screen, file, Red.RED_SIZE, Red.RED_SIZE)
             self.image.rect = self.rect
-            # print(file)
             if self.dead_timer > 20:
                 self.alive = True
             else:
@@ -96,12 +108,13 @@ class Red(Sprite):
             self.tick_speed = self.tick_dead
 
         self.ai(maze, screen)
+        self.dead_collide(screen, pm, maze)
 
     def ai(self, maze, screen):
         """Make the ghost move by itself"""
         # Check while moving up
         # make sure if the ghost is at the center (start of the game) then it will move to the left
-        if gf.stop_ball(self, maze) is True:
+        if gf.stop_ball(self, maze) is True:   # Make this false later for self.eat
             self.check_directions(maze)
 
             if self.move == "u" and self.rect == (300, 230, 30, 30):
@@ -143,3 +156,8 @@ class Red(Sprite):
 
     def blitme(self):
         self.image.blitme()
+
+    def dead_collide(self, screen, pm, maze):
+        """Collision for the dead ghost"""
+        if pygame.sprite.collide_rect(self, pm) and self.alive is False:
+            self.eat = True

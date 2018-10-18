@@ -16,7 +16,7 @@ def update_screen(screen, pm, maze, red, stats, display):
     if not stats.game_pause and not stats.game_over and not stats.get_ready:
         pm.update(maze, screen)
         red.blitme()
-        red.update(maze, screen)
+        red.update(maze, screen, pm)
 
     # Display everything
     pygame.display.flip()
