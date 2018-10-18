@@ -5,6 +5,7 @@ import game_functions as gf
 from pm import PM
 from ghosts import Red
 from stats import Stats
+from display import Display
 
 
 def run_game():
@@ -17,7 +18,6 @@ def run_game():
 
     # Draw maze
     mazefile = 'maze.txt'
-
     maze = Maze(screen, mazefile)
 
     # Pacman
@@ -26,12 +26,14 @@ def run_game():
     # Ghosts
     red = Red(screen, maze)
 
+    display = Display(screen, pm)
+
     while True:
 
         if stats.game_active:
-            gf.check_events(screen, pm, maze, red, stats)
+            gf.check_events(screen, pm, maze, red, stats, display)
 
-            gf.update_screen(screen, pm, maze, red, stats)
+            gf.update_screen(screen, pm, maze, red, stats, display)
 
             pygame.display.flip()
 

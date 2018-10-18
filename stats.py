@@ -8,6 +8,13 @@ class Stats:
         self.game_pause = False
         self.game_over = False
         self.get_ready = True
+        self.index = 0
 
-        self.timer = pygame.time.get_ticks()
+    def ready(self):
+        if self.index >= 20:
+            self.index = 0
+            self.get_ready = False
+        else:
+            self.index += .3
+
 

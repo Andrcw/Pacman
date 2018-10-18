@@ -13,11 +13,8 @@ class PM(Sprite):
         self.screen = screen.get_rect()
         self.image = ImageRect(screen, "p_left_2", PM.PAC_SIZE, PM.PAC_SIZE)
         self.rect = self.image.rect
-        # self.rect.x = self.screen.centerx - 10
-        # self.rect.y = self.screen.centery + 110
-
-        self.rect.x = self.screen.centerx + 50
-        self.rect.y = self.screen.centery - 170
+        self.rect.x = self.screen.centerx - 10
+        self.rect.y = self.screen.centery + 110
 
         self.maze = maze
 
@@ -87,7 +84,7 @@ class PM(Sprite):
                 gf.reset_locations(self, red, stats)
 
             else:
-                self.dead_index += .3
+                self.dead_index += .2
 
         if self.lives == 0:
             stats.game_over = True
