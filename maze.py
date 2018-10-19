@@ -46,7 +46,6 @@ class Maze:
     def build(self):
         r = self.brick.rect
         w, h = r.width, r.height
-        # dx, dy = self.deltax, self.deltay
 
         for nrow in range(len(self.rows)):
             row = self.rows[nrow]

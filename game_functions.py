@@ -1,6 +1,6 @@
 import sys
 import pygame
-# Testing
+
 
 def update_screen(screen, pm, maze, red, blue, pink, orange, cherry, stats, display):
     if stats.start_screen is True:
@@ -54,6 +54,7 @@ def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
             elif event.key == pygame.K_DOWN:
                 pm.direction_d = True
             elif event.key == pygame.K_p:
+                # Only for testing
                 stats.start_screen = False
 
         elif event.type == pygame.KEYUP:
@@ -67,13 +68,14 @@ def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
                 pm.direction_d = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            display.button_clicks(pm, stats)
+            display.button_clicks(pm, stats, maze)
 
     ball_pm_collision(pm, maze)
     pill_pm_collision(pm, maze, red, blue, pink, orange)
     pm.ghost_collision(red, blue, pink, orange, stats, screen)
     check_movement(pm, maze)
     stats.update_txt(pm)
+    new_level(maze, pm, red, blue, pink, orange, stats)
 
 
 def check_movement(pm, maze):
@@ -189,3 +191,19 @@ def reset_locations(pm, red, blue, pink, orange, stats):
 
     if stats.game_over is False:
         stats.get_ready = True
+
+
+def new_level(maze, pm, red, blue, pink, orange, stats):
+    """check if all pills and balls are gone, if yes start new level and build the new map"""
+    if len(maze.pills) is 0 and len(maze.balls) is 0:
+        reset_locations(pm, red, blue, pink, orange, stats)
+        red.alive = True
+        red.eat = False
+        blue.alive = True
+        blue.eat = False
+        pink.alive = True
+        pink.eat = False
+        orange.alive = True
+        orange.eat = False
+        maze.build()
+

@@ -82,12 +82,13 @@ class Display:
             screen.blit(self.go, self.go_btn)
             screen.blit(self.play, self.play_btn)
 
-    def button_clicks(self, pm, stats):
+    def button_clicks(self, pm, stats, maze):
         play_clicked = self.play_btn.collidepoint(pygame.mouse.get_pos())
         if play_clicked and stats.game_over:
             pm.lives = 3
             pm.score = 0
             stats.game_over = False
+            maze.build()
 
         ply_clicked = self.ply_btn.collidepoint(pygame.mouse.get_pos())
         if ply_clicked and stats.start_screen:
