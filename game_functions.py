@@ -1,6 +1,6 @@
 import sys
 import pygame
-
+# Testing
 
 def update_screen(screen, pm, maze, red, blue, pink, orange, cherry, stats, display):
     if stats.start_screen is True:

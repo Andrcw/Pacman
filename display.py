@@ -85,7 +85,6 @@ class Display:
     def button_clicks(self, pm, stats):
         play_clicked = self.play_btn.collidepoint(pygame.mouse.get_pos())
         if play_clicked and stats.game_over:
-            print("play again")
             pm.lives = 3
             pm.score = 0
             stats.game_over = False
