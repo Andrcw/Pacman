@@ -2,7 +2,7 @@ import sys
 import pygame
 
 
-def update_screen(screen, pm, maze, red, stats, display):
+def update_screen(screen, pm, maze, red, blue, pink, orange, stats, display):
     screen.fill((0, 0, 0))
     maze.blitme()
     display.score_blit(screen, stats, pm)
@@ -11,18 +11,27 @@ def update_screen(screen, pm, maze, red, stats, display):
     pm.blitme()
     if stats.get_ready:
         red.blitme()
+        blue.blitme()
+        pink.blitme()
+        orange.blitme()
         stats.ready()
 
     if not stats.game_pause and not stats.game_over and not stats.get_ready:
         pm.update(maze, screen)
         red.blitme()
         red.update(maze, screen, pm)
+        blue.blitme()
+        blue.update(maze, screen, pm)
+        pink.blitme()
+        pink.update(maze, screen, pm)
+        orange.blitme()
+        orange.update(maze, screen, pm)
 
     # Display everything
     pygame.display.flip()
 
 
-def check_events(screen, pm, maze, red, stats, display):
+def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -55,8 +64,8 @@ def check_events(screen, pm, maze, red, stats, display):
             display.button_clicks(pm, stats)
 
     ball_pm_collision(pm, maze)
-    pill_pm_collision(pm, maze, red)
-    pm.ghost_collision(red, stats, screen)
+    pill_pm_collision(pm, maze, red, blue, pink, orange)
+    pm.ghost_collision(red, blue, pink, orange, stats, screen)
     check_movement(pm, maze)
 
 
@@ -124,7 +133,7 @@ def ball_pm_collision(pm, maze):
             # Need to add scoring system here
 
 
-def pill_pm_collision(pm, maze, red):
+def pill_pm_collision(pm, maze, red, blue, pink, orange):
     """Check if pacman eats the pill"""
     for pills in maze.pills:
         if pills.colliderect(pm):
@@ -132,15 +141,33 @@ def pill_pm_collision(pm, maze, red):
             red.alive = False
             red.dead_timer = 1
 
+            blue.alive = False
+            blue.dead_timer = 1
 
-def reset_locations(pm, red, stats):
+            pink.alive = False
+            pink.dead_timer = 1
+
+            orange.alive = False
+            orange.dead_timer = 1
+
+
+def reset_locations(pm, red, blue, pink, orange, stats):
     """Reset the locations of pacman and red ghost"""
     pm.rect.x = pm.screen.centerx - 10
     pm.rect.y = pm.screen.centery + 110
     pm.move = "l"
 
-    red.rect.x = red.screen.centerx - 15
-    red.rect.y = red.screen.centery - 120
+    red.rect.x = 300
+    red.rect.y = 230
+
+    blue.rect.x = 250
+    blue.rect.y = 330
+
+    pink.rect.x = 300
+    pink.rect.y = 330
+
+    orange.rect.x = 350
+    orange.rect.y = 330
 
     if stats.game_over is False:
         stats.get_ready = True

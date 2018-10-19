@@ -3,7 +3,7 @@ import pygame
 from maze import Maze
 import game_functions as gf
 from pm import PM
-from ghosts import Red
+from ghosts import Red, Blue, Pink, Orange
 from stats import Stats
 from display import Display
 
@@ -25,15 +25,18 @@ def run_game():
 
     # Ghosts
     red = Red(screen, maze)
+    blue = Blue(screen, maze)
+    pink = Pink(screen, maze)
+    orange = Orange(screen, maze)
 
     display = Display(screen, pm)
 
     while True:
 
         if stats.game_active:
-            gf.check_events(screen, pm, maze, red, stats, display)
+            gf.check_events(screen, pm, maze, red, blue, pink, orange, stats, display)
 
-            gf.update_screen(screen, pm, maze, red, stats, display)
+            gf.update_screen(screen, pm, maze, red, blue, pink, orange, stats, display)
 
             pygame.display.flip()
 

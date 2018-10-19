@@ -65,11 +65,20 @@ class PM(Sprite):
                 self.index += .3
 
         """For testing"""
-        # print(self.rect.x)
+        # print(self.rect.y)
 
-    def ghost_collision(self, red, stats, screen):
+    def ghost_collision(self, red, blue, pink, orange, stats, screen):
         """Check if pacman collides with ghost, loses a life"""
         if pygame.sprite.collide_rect(self, red) and red.alive is True:
+            stats.game_pause = True
+
+        elif pygame.sprite.collide_rect(self, blue) and blue.alive is True:
+            stats.game_pause = True
+
+        elif pygame.sprite.collide_rect(self, pink) and pink.alive is True:
+            stats.game_pause = True
+
+        elif pygame.sprite.collide_rect(self, orange) and orange.alive is True:
             stats.game_pause = True
 
         if stats.game_pause and red.alive is True:
@@ -84,7 +93,7 @@ class PM(Sprite):
                 self.lives -= 1
 
                 # Start again
-                gf.reset_locations(self, red, stats)
+                gf.reset_locations(self, red, blue, pink, orange, stats)
 
             else:
                 self.dead_index += .2
