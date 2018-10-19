@@ -1,7 +1,7 @@
 import pygame
 
 
-class Display():
+class Display:
     def __init__(self, screen, pm):
         """Display score, and how many pacman left"""
         self.font = pygame.font.SysFont("monospace", 40)
@@ -101,4 +101,3 @@ class Display():
         screen.blit(self.pm, self.pm_btn)
         screen.blit(self.ply, self.ply_btn)
         screen.blit(self.hi, self.hi_btn)
-

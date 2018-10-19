@@ -74,6 +74,8 @@ class Red(Sprite):
                     file = "g_red_up_" + str(math.floor(self.index))
                 else:
                     file = "g_eyes_up"
+            else:
+                file = "g_red_left_1"
             self.image = ImageRect(screen, file, Red.RED_SIZE, Red.RED_SIZE)
             self.image.rect = self.rect
             if self.index > 2.5:
@@ -107,10 +109,10 @@ class Red(Sprite):
         elif self.alive is False:
             self.tick_speed = self.tick_dead
 
-        self.ai(maze, screen)
-        self.dead_collide(screen, pm, maze)
+        self.ai(maze)
+        self.dead_collide(pm, maze)
 
-    def ai(self, maze, screen):
+    def ai(self, maze):
         """Make the ghost move by itself"""
         """Making the ghost move out of the jail"""
         if self.move == "u" and self.rect == (300, 230, 30, 30):
@@ -121,7 +123,7 @@ class Red(Sprite):
 
         if gf.stop_ball(self, maze) is True and self.eat is False:
             self.check_directions(maze)
-            if len(self.avail) == 0: # In case error, try one of these moves
+            if len(self.avail) == 0:
                 self.move = "l"
                 self.move = "r"
                 self.move = "u"
@@ -201,7 +203,7 @@ class Red(Sprite):
     def blitme(self):
         self.image.blitme()
 
-    def dead_collide(self, screen, pm, maze):
+    def dead_collide(self, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
             if self.alive is False and self.eat is False:
@@ -285,6 +287,8 @@ class Blue(Sprite):
                     file = "g_blue_up_" + str(math.floor(self.index))
                 else:
                     file = "g_eyes_up"
+            else:
+                file = "g_blue_left_1"
             self.image = ImageRect(screen, file, Blue.BLUE_SIZE, Blue.BLUE_SIZE)
             self.image.rect = self.rect
             if self.index > 2.5:
@@ -318,10 +322,10 @@ class Blue(Sprite):
         elif self.alive is False:
             self.tick_speed = self.tick_dead
 
-        self.ai(maze, screen)
-        self.dead_collide(screen, pm, maze)
+        self.ai(maze)
+        self.dead_collide(pm, maze)
 
-    def ai(self, maze, screen):
+    def ai(self, maze):
         """Make the ghost move by itself"""
         """Making the ghost move out of the jail"""
         if self.move == "u" and self.rect == (300, 230, 30, 30):
@@ -332,7 +336,7 @@ class Blue(Sprite):
 
         if gf.stop_ball(self, maze) is True and self.eat is False:
             self.check_directions(maze)
-            if len(self.avail) == 0: # In case error, try one of these moves
+            if len(self.avail) == 0:
                 self.move = "l"
                 self.move = "r"
                 self.move = "u"
@@ -412,7 +416,7 @@ class Blue(Sprite):
     def blitme(self):
         self.image.blitme()
 
-    def dead_collide(self, screen, pm, maze):
+    def dead_collide(self, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
             if self.alive is False and self.eat is False:
@@ -496,6 +500,8 @@ class Pink(Sprite):
                     file = "g_pink_up_" + str(math.floor(self.index))
                 else:
                     file = "g_eyes_up"
+            else:
+                file = "g_pink_left_1"
             self.image = ImageRect(screen, file, Pink.PINK_SIZE, Pink.PINK_SIZE)
             self.image.rect = self.rect
             if self.index > 2.5:
@@ -529,10 +535,10 @@ class Pink(Sprite):
         elif self.alive is False:
             self.tick_speed = self.tick_dead
 
-        self.ai(maze, screen)
-        self.dead_collide(screen, pm, maze)
+        self.ai(maze)
+        self.dead_collide(pm, maze)
 
-    def ai(self, maze, screen):
+    def ai(self, maze):
         """Make the ghost move by itself"""
         """Making the ghost move out of the jail"""
         if self.move == "u" and self.rect == (300, 230, 30, 30):
@@ -543,7 +549,7 @@ class Pink(Sprite):
 
         if gf.stop_ball(self, maze) is True and self.eat is False:
             self.check_directions(maze)
-            if len(self.avail) == 0: # In case error, try one of these moves
+            if len(self.avail) == 0:
                 self.move = "l"
                 self.move = "r"
                 self.move = "u"
@@ -623,7 +629,7 @@ class Pink(Sprite):
     def blitme(self):
         self.image.blitme()
 
-    def dead_collide(self, screen, pm, maze):
+    def dead_collide(self, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
             if self.alive is False and self.eat is False:
@@ -707,6 +713,8 @@ class Orange(Sprite):
                     file = "g_orange_up_" + str(math.floor(self.index))
                 else:
                     file = "g_eyes_up"
+            else:
+                file = "g_orange_left_1"
             self.image = ImageRect(screen, file, Orange.ORANGE_SIZE, Orange.ORANGE_SIZE)
             self.image.rect = self.rect
             if self.index > 2.5:
@@ -740,10 +748,10 @@ class Orange(Sprite):
         elif self.alive is False:
             self.tick_speed = self.tick_dead
 
-        self.ai(maze, screen)
-        self.dead_collide(screen, pm, maze)
+        self.ai(maze)
+        self.dead_collide(pm, maze)
 
-    def ai(self, maze, screen):
+    def ai(self, maze):
         """Make the ghost move by itself"""
         """Making the ghost move out of the jail"""
         if self.move == "u" and self.rect == (300, 230, 30, 30):
@@ -754,7 +762,7 @@ class Orange(Sprite):
 
         if gf.stop_ball(self, maze) is True and self.eat is False:
             self.check_directions(maze)
-            if len(self.avail) == 0: # In case error, try one of these moves
+            if len(self.avail) == 0:
                 self.move = "l"
                 self.move = "r"
                 self.move = "u"
@@ -834,7 +842,7 @@ class Orange(Sprite):
     def blitme(self):
         self.image.blitme()
 
-    def dead_collide(self, screen, pm, maze):
+    def dead_collide(self, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
             if self.alive is False and self.eat is False:

@@ -1,4 +1,3 @@
-import sys
 import pygame
 from maze import Maze
 import game_functions as gf
@@ -41,6 +40,5 @@ def run_game():
 
             pygame.display.flip()
 
+
 run_game()
-
-

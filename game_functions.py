@@ -11,7 +11,6 @@ def update_screen(screen, pm, maze, red, blue, pink, orange, cherry, stats, disp
         maze.blitme()
         display.score_blit(screen, stats, pm)
 
-        # Displays the blitme's
         pm.blitme()
         if stats.get_ready and stats.start_screen is False:
             red.blitme()
@@ -46,7 +45,7 @@ def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 sys.exit()
-            elif event.key == pygame.K_LEFT:   # Idea: change to TRUE, and keypress change to FALSE so that it loops
+            elif event.key == pygame.K_LEFT:
                 pm.direction_l = True
             elif event.key == pygame.K_RIGHT:
                 pm.direction_r = True
@@ -107,6 +106,8 @@ def brick_collision(pm, maze):
         temp = pm.rect.move(0, -1)
     elif pm.direction == "d":
         temp = pm.rect.move(0, 1)
+    else:
+        temp = pm.rect.move(0, 0)
 
     for brick in maze.bricks:
         if brick.colliderect(temp):
@@ -125,6 +126,8 @@ def stop_ball(pm, maze):
         temp = pm.rect.move(0, -1)
     elif pm.move == "d":
         temp = pm.rect.move(0, 1)
+    else:
+        temp = pm.rect.move(0, 0)
 
     for brick in maze.bricks:
         if brick.colliderect(temp):

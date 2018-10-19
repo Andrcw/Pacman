@@ -58,6 +58,8 @@ class PM(Sprite):
             elif self.move == "u":
                 self.image.rect.y -= self.speed
                 file = "p_up_" + str(math.floor(self.index))
+            else:
+                file = "p_up_1"
             self.image = ImageRect(screen, file, PM.PAC_SIZE, PM.PAC_SIZE)
             self.image.rect = self.rect
             if self.index >= 4:
