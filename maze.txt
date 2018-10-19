@@ -50,7 +50,7 @@ xxx.*.xxxxxxx.*.xxxxxxxxxxx.*.xxx.*.xxxxxxxxxxx.*.xxxxxxx.*.xxx
 xxx.o.xxxxxxx.o.xxxxxxxxxxx.o.xxx.o.xxxxxxxxxxx.o.xxxxxxx.o.xxx
 xxx.*.xxxxxxx.*.xxxxxxxxxxx.*.xxx.*.xxxxxxxxxxx.*.xxxxxxx.*.xxx
 xxx.o.....xxx.o.............o.....o.............o.xxx.....o.xxx
-xxx.8o*o*.xxxo*o*o*o*o*o*o*o*o*o*o*o*o*o*o*o*o*o*.xxx.*o*o8.xxx
+xxx.8o*o*.xxxo*o*o*o*o*o*o*o*o...o*o*o*o*o*o*o*o*.xxx.*o*o8.xxx
 xxx.....o.xxx.o.....o.....................o.....o.xxx.o.....xxx
 xxxxxxx.*.xxx.*.xxx.*.xxxxxxxxxxxxxxxxxxx.*.xxx.*.xxx.*.xxxxxxx
 xxxxxxx.o.xxx.o.xxx.o.xxxxxxxxxxxxxxxxxxx.o.xxx.o.xxx.o.xxxxxxx

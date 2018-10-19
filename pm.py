@@ -30,6 +30,7 @@ class PM(Sprite):
         # Index for images
         self.index = 1
         self.dead_index = 1
+        self.sound_index = 1
 
         # Set movement flags as false
         self.direction_l = False
@@ -71,15 +72,23 @@ class PM(Sprite):
         """Check if pacman collides with ghost, loses a life"""
         if pygame.sprite.collide_rect(self, red) and red.alive is True:
             stats.game_pause = True
+            die = pygame.mixer.Sound('sounds/death.wav')
+            die.play()
 
         elif pygame.sprite.collide_rect(self, blue) and blue.alive is True:
             stats.game_pause = True
+            die = pygame.mixer.Sound('sounds/death.wav')
+            die.play()
 
         elif pygame.sprite.collide_rect(self, pink) and pink.alive is True:
             stats.game_pause = True
+            die = pygame.mixer.Sound('sounds/death.wav')
+            die.play()
 
         elif pygame.sprite.collide_rect(self, orange) and orange.alive is True:
             stats.game_pause = True
+            die = pygame.mixer.Sound('sounds/death.wav')
+            die.play()
 
         if stats.game_pause and red.alive is True:
             file = "p_dead_" + str(math.floor(self.dead_index))

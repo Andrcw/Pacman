@@ -204,7 +204,11 @@ class Red(Sprite):
     def dead_collide(self, screen, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
-            self.eat = True
+            if self.alive is False and self.eat is False:
+                pm.score += 200
+                eat = pygame.mixer.Sound('sounds/eatghost.wav')
+                eat.play()
+                self.eat = True
 
         if self.eat is True:
             for lines in maze.lines:
@@ -411,7 +415,11 @@ class Blue(Sprite):
     def dead_collide(self, screen, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
-            self.eat = True
+            if self.alive is False and self.eat is False:
+                pm.score += 200
+                eat = pygame.mixer.Sound('sounds/eatghost.wav')
+                eat.play()
+                self.eat = True
 
         if self.eat is True:
             for lines in maze.lines:
@@ -618,7 +626,11 @@ class Pink(Sprite):
     def dead_collide(self, screen, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
-            self.eat = True
+            if self.alive is False and self.eat is False:
+                pm.score += 200
+                eat = pygame.mixer.Sound('sounds/eatghost.wav')
+                eat.play()
+                self.eat = True
 
         if self.eat is True:
             for lines in maze.lines:
@@ -825,10 +837,43 @@ class Orange(Sprite):
     def dead_collide(self, screen, pm, maze):
         """Collision for the dead ghost"""
         if pygame.sprite.collide_rect(self, pm) and self.alive is False:
-            self.eat = True
+            if self.alive is False and self.eat is False:
+                pm.score += 200
+                eat = pygame.mixer.Sound('sounds/eatghost.wav')
+                eat.play()
+                self.eat = True
 
         if self.eat is True:
             for lines in maze.lines:
                 if lines.colliderect(self):
                     self.eat = False
                     self.alive = True
+
+
+class Cherry(Sprite):
+    CHERRY_SIZE = 30
+
+    def __init__(self, screen):
+        super(Cherry, self).__init__()
+        self.screen = screen.get_rect()
+        self.image = ImageRect(screen, "cherry", Cherry.CHERRY_SIZE, Cherry.CHERRY_SIZE)
+        self.rect = self.image.rect
+
+        # Starts the cherry at this location
+        self.rect.x = 300
+        self.rect.y = 390
+
+    def blitme(self):
+        self.image.blitme()
+
+    def update(self, pm):
+        self.collide(pm)
+
+    def collide(self, pm):
+        """Collision for the dead ghost"""
+        if pygame.sprite.collide_rect(self, pm):
+            self.rect.x = 800
+            self.rect.y = 800
+            pm.score += 200
+            eat = pygame.mixer.Sound('sounds/eatfruit.wav')
+            eat.play()

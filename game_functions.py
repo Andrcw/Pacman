@@ -2,33 +2,40 @@ import sys
 import pygame
 
 
-def update_screen(screen, pm, maze, red, blue, pink, orange, stats, display):
-    screen.fill((0, 0, 0))
-    maze.blitme()
-    display.score_blit(screen, stats, pm)
+def update_screen(screen, pm, maze, red, blue, pink, orange, cherry, stats, display):
+    if stats.start_screen is True:
+        display.start(screen, stats)
 
-    # Displays the blitme's
-    pm.blitme()
-    if stats.get_ready:
-        red.blitme()
-        blue.blitme()
-        pink.blitme()
-        orange.blitme()
-        stats.ready()
+    elif stats.start_screen is False:
+        screen.fill((0, 0, 0))
+        maze.blitme()
+        display.score_blit(screen, stats, pm)
 
-    if not stats.game_pause and not stats.game_over and not stats.get_ready:
-        pm.update(maze, screen)
-        red.blitme()
-        red.update(maze, screen, pm)
-        blue.blitme()
-        blue.update(maze, screen, pm)
-        pink.blitme()
-        pink.update(maze, screen, pm)
-        orange.blitme()
-        orange.update(maze, screen, pm)
+        # Displays the blitme's
+        pm.blitme()
+        if stats.get_ready and stats.start_screen is False:
+            red.blitme()
+            blue.blitme()
+            pink.blitme()
+            orange.blitme()
+            cherry.blitme()
+            stats.ready()
 
-    # Display everything
-    pygame.display.flip()
+        if not stats.game_pause and not stats.game_over and not stats.get_ready:
+            pm.update(maze, screen)
+            red.blitme()
+            red.update(maze, screen, pm)
+            blue.blitme()
+            blue.update(maze, screen, pm)
+            pink.blitme()
+            pink.update(maze, screen, pm)
+            orange.blitme()
+            orange.update(maze, screen, pm)
+            cherry.blitme()
+            cherry.update(pm)
+
+        # Display everything
+        pygame.display.flip()
 
 
 def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
@@ -48,7 +55,7 @@ def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
             elif event.key == pygame.K_DOWN:
                 pm.direction_d = True
             elif event.key == pygame.K_p:
-                print(stats.game_over)
+                stats.start_screen = False
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -67,6 +74,7 @@ def check_events(screen, pm, maze, red, blue, pink, orange, stats, display):
     pill_pm_collision(pm, maze, red, blue, pink, orange)
     pm.ghost_collision(red, blue, pink, orange, stats, screen)
     check_movement(pm, maze)
+    stats.update_txt(pm)
 
 
 def check_movement(pm, maze):
@@ -130,7 +138,14 @@ def ball_pm_collision(pm, maze):
     for balls in maze.balls:
         if balls.colliderect(pm):
             maze.balls.remove(balls)
-            # Need to add scoring system here
+            pm.score += 10
+
+            if pm.sound_index >= 2:
+                pm.sound_index = 1
+                chomp = pygame.mixer.Sound('sounds/chomp.wav')
+                chomp.play()
+            else:
+                pm.sound_index += .3
 
 
 def pill_pm_collision(pm, maze, red, blue, pink, orange):

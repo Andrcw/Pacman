@@ -1,12 +1,12 @@
 import pygame
 
 
-
 class Display():
     def __init__(self, screen, pm):
         """Display score, and how many pacman left"""
         self.font = pygame.font.SysFont("monospace", 40)
         self.font_1 = pygame.font.SysFont("monospace", 25)
+        self.font_2 = pygame.font.SysFont("monospace", 100)
 
         self.yellow = (255, 255, 0)
         self.white = (255, 255, 255)
@@ -47,6 +47,21 @@ class Display():
         self.go_btn.centerx = screen.get_rect().centerx
         self.go_btn.centery = screen.get_rect().centery + 8
 
+        self.pm = self.font_2.render("PACMAN", True, self.white)
+        self.pm_btn = self.pm.get_rect()
+        self.pm_btn.centerx = screen.get_rect().centerx
+        self.pm_btn.centery = screen.get_rect().centery - 300
+
+        self.ply = self.font.render("PLAY", True, self.yellow)
+        self.ply_btn = self.ply.get_rect()
+        self.ply_btn.centerx = screen.get_rect().centerx
+        self.ply_btn.centery = screen.get_rect().centery + 300
+
+        self.hi = self.font.render("High Score: 1000", True, self.white)
+        self.hi_btn = self.hi.get_rect()
+        self.hi_btn.centerx = screen.get_rect().centerx
+        self.hi_btn.centery = screen.get_rect().centery + 350
+
     def score_blit(self, screen, stats, pm):
         # Update numbers for scores
         self.s = self.font.render(str(pm.score), True, self.yellow)
@@ -75,4 +90,15 @@ class Display():
             pm.score = 0
             stats.game_over = False
 
+        ply_clicked = self.ply_btn.collidepoint(pygame.mouse.get_pos())
+        if ply_clicked and stats.start_screen:
+            stats.start_screen = False
+
+    def start(self, screen, stats):
+        """For start screen"""
+        self.hi = self.font.render("High Score: " + str(stats.high_score), True, self.white)
+        screen.fill((0, 0, 0))
+        screen.blit(self.pm, self.pm_btn)
+        screen.blit(self.ply, self.ply_btn)
+        screen.blit(self.hi, self.hi_btn)
 
