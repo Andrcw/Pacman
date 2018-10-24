@@ -29,9 +29,9 @@ xxxxxxxxxxxxx.*.xxxxxxxxxxx...xxx...xxxxxxxxxxx.*.xxxxxxxxxxxxx
 xxxxxxxxxxxxx.*.xxx...x.xxxxx.....xxxxx.x...xxx.*.xxxxxxxxxxxxx
 xxxxxxxxxxxxx.o.xxx...x.x.............x.x...xxx.o.xxxxxxxxxxxxx
 xxxxxxxxxxxxx.*.xxx...x.x.............x.x...xxx.*.xxxxxxxxxxxxx
-..............o.......x.x.............x.x.......o..............
-..............*.......x.x.............x.x.......*..............
-..............o.......x.x.............x.x.......o..............
+xxx...........o.......x.x.............x.x.......o...........xxx
+xxx...........*.......x.x.............x.x.......*...........xxx
+xxx...........o.......x.x.............x.x.......o...........xxx
 xxxxxxxxxxxxx.*.xxx...x.x.............x.x...xxx.*.xxxxxxxxxxxxx
 xxxxxxxxxxxxx.o.xxx...x.x.............x.x...xxx.o.xxxxxxxxxxxxx
 xxxxxxxxxxxxx.*.xxx...x.xxxxxxxxxxxxxxx.x...xxx.*.xxxxxxxxxxxxx

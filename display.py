@@ -1,4 +1,5 @@
 import pygame
+import math
 
 
 class Display:
@@ -62,6 +63,14 @@ class Display:
         self.hi_btn.centerx = screen.get_rect().centerx
         self.hi_btn.centery = screen.get_rect().centery + 350
 
+        self.intro = pygame.image.load('images/intro/1.png')
+        self.intro = pygame.transform.scale(self.intro, (600, 357))
+        self.intro_btn = self.intro.get_rect()
+        self.intro_btn.centerx = screen.get_rect().centerx
+        self.intro_btn.centery = screen.get_rect().centery - 100
+
+        self.index = 1
+
     def score_blit(self, screen, stats, pm):
         # Update numbers for scores
         self.s = self.font.render(str(pm.score), True, self.yellow)
@@ -98,6 +107,15 @@ class Display:
         """For start screen"""
         self.hi = self.font.render("High Score: " + str(stats.high_score), True, self.white)
         screen.fill((0, 0, 0))
-        screen.blit(self.pm, self.pm_btn)
         screen.blit(self.ply, self.ply_btn)
         screen.blit(self.hi, self.hi_btn)
+
+        if self.index > 83:
+            self.index = 1
+        else:
+            self.index += .1
+
+        file = "images/intro/" + str(math.floor(self.index)) + ".png"
+        self.intro = pygame.image.load(file)
+        self.intro = pygame.transform.scale(self.intro, (600, 357))
+        screen.blit(self.intro, self.intro_btn)
